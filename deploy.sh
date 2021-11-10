@@ -6,7 +6,7 @@ terraform plan
 terraform apply
 
 echo "[webservers]" > env/hosts
-cat terraform.tfstate | grep '"private_ip":' | cut -d '"' -f 4 >> env/hosts
+cat terraform.tfstate | grep '"public_ip":' | cut -d '"' -f 4 | { tr -d '\n'; echo " ansible_user=ubuntu"; } >> env/hosts
 
 cat private_key > ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
